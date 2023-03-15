@@ -1,0 +1,118 @@
+{% extends 'layouts/base.html' %} {% block title %} Register page {% endblock %} 
+
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="../../static/css/login.css" />
+{% endblock %} {% block content %}
+<div id="logreg-forms">
+  <form class="form-signin" action="{% url 'register_page' %}" method="post">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+      Registrarse
+    </h1>
+
+    <input
+      type="text"
+      id="firstName"
+      name="firstName"
+      class="form-control"
+      placeholder="Nombre"
+      autofocus=""
+    />
+    <input
+      type="text"
+      id="lastName"
+      name="lastName"
+      class="form-control"
+      placeholder="Apellido"
+    />
+
+    <input
+      type="text"
+      id="ci"
+      name="ci"
+      class="form-control"
+      placeholder="Carnet de identidad"
+    />
+
+    <input
+      type="text"
+      id="telefono"
+      name="telefono"
+      class="form-control"
+      placeholder="Telefono"
+    />
+
+    <div class="form-group">
+      <label>Tipo de usuario</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        name="rol"
+      >
+        <option value="Paciente">Paciente</option>
+        <option value="Secretaria">Secretaria</option>
+        <option value="Doctor">Doctor</option>
+      </select>
+    </div>
+
+    <input
+      type="email"
+      id="email"
+      name="email"
+      class="form-control"
+      placeholder="Correo Electronico"
+    />
+
+    <input
+      type="text"
+      id="username"
+      name="username"
+      class="form-control"
+      placeholder="Nombre de usuario"
+      required
+    />
+
+    <input
+      type="password"
+      id="password"
+      name="password"
+      class="form-control"
+      placeholder="Contraseña"
+    />
+
+    <input
+      type="password"
+      id="password_again"
+      name="password_again"
+      class="form-control"
+      placeholder="Repetir Contraseña"
+    />
+
+    <button class="btn btn-success btn-block" type="submit">
+      <i class="fas fa-sign-in-alt"></i> Registrarse
+    </button>
+
+    <a
+      href="{% url 'login_page' %}"
+      class="btn btn-primary btn-block"
+      type="button"
+      style="color: white"
+    >
+      <i class="fas fa-user-plus"></i> Iniciar Sesion
+    </a>
+  </form>
+</div>
+
+{% endblock %}

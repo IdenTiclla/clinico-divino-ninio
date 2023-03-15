@@ -1,0 +1,49 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Actualizar Especialidad
+{% endblock %}
+
+{% block content %}
+<div class="col-md-5">
+    <h1>Actualizar Especialidad</h1>
+    <form action="/especialidades/update/{{especialidad.id}}" method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              placeholder="Ingrese el nombre de la especialidad"
+              value="{{especialidad.nombre}}"
+            />
+          </div>
+    
+    
+          <label for="">Descripcion de la especialidad</label>
+          <div class="form-group">
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                placeholder="Leave a comment here"
+                id="floatingTextarea"
+                name="descripcion"
+                required
+              >{{especialidad.descripcion}}</textarea>
+              <label for="floatingTextarea">Descripcion de la especialidad</label>
+            </div>
+          </div>
+    
+        
+  
+      
+  
+        <button type="submit">Actualizar Especialidad</button>
+    </form>
+  </div>
+
+{% endblock %}

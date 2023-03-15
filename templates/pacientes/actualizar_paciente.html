@@ -1,0 +1,82 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Actualizar Paciente
+{% endblock %}
+
+{% block content %}
+<div class="col-md-5">
+    <h1>Actualizar Paciente</h1>
+    <form action="/pacientes/update/{{paciente.id}}" method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="nombre">Nombre del paciente</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              placeholder="Ingrese el nombre del paciente"
+              value="{{paciente.nombre}}"
+            />
+          </div>
+    
+          <div class="form-group">
+            <label for="nombre">Apellido paterno</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoPaterno"
+              name="apellidoPaterno"
+              placeholder="Ingrese el apellido paterno"
+              value="{{paciente.apellido}}"
+            />
+          </div>
+    
+    
+          <div class="form-group">
+            <label for="nombre">Carnet de identidad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="ci"
+              name="ci"
+              placeholder="Ingrese el ci"
+              value="{{paciente.ci}}"
+            />
+          </div>
+    
+          
+          <div class="form-group">
+            <label for="nombre">Telefono</label>
+            <input
+              type="number"
+              class="form-control"
+              id="telefono"
+              name="telefono"
+              placeholder="Ingrese el telefono"
+              value="{{paciente.telefono}}"
+            />
+          </div>
+    
+          <div class="form-group">
+            <label for="nombre">Domicilio</label>
+            <input
+              type="text"
+              class="form-control"
+              id="domicilio"
+              name="domicilio"
+              placeholder="Ingrese la ubicacion de domicilio"
+              value="{{paciente.domicilio}}"
+            />
+          </div>
+  
+      
+  
+        <button type="submit">Actualizar Paciente</button>
+    </form>
+  </div>
+
+{% endblock %}

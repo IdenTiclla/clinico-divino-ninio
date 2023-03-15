@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html' %} {% load static %} {% block customCSS %}
+<link rel="stylesheet" href="{% static 'css/list-items.css' %}" />
+{% endblock %} {% block content %}
+
+<div class="form-group">
+  <label for="sueldo">Fecha entrega</label>
+  <input type="datetime-local" id="meeting-time"
+    name="meeting-time" value="2023-02-22T19:30"
+     min="2023-02-07T00:00" max="2023-06-14T00:00">
+  
+</div>
+
+<input type="time" name="due_time" id="id_due_time" class="form-control form-control-lg">
+
+
+
+
+<div style="align-content: center;">
+  <h1 style="font-size: 250px; text-align: center">Clinica Divino Niño 🏥</h1>
+</div>
+
+{% endblock %}
+
+
+
+{% block customJavascript %}
+{% endblock %}

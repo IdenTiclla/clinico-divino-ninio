@@ -1,0 +1,121 @@
+{% extends 'layouts/base.html' %}
+
+{% block customCSS %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+<h1>Reservas de consultas</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/reservas" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione el paciente</label>
+        <select name="paciente_id" class="form-select"  aria-label="Default select example">
+          {% for paciente in pacientes %}
+            <option value="{{paciente.id}}">{{paciente.nombre}} {{paciente.apellido}}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione el Consultorio</label>
+        <select name="consultorio_horario" class="form-select"  aria-label="Default select example">
+          {% for consultorio in consultorios %}
+            {% for horario in consultorio.horario_set.all %}
+            <option value="{{consultorio.id}} {{horario.id}}">{{consultorio}} {{horario}}</option>
+            {% endfor %}
+          {% endfor %}
+        </select>
+      </div>
+
+    
+      <label for="nombre">Fecha de la consulta</label>
+      <br>
+      <div class="input-group date" id="datepicker">
+        
+        <input name="fecha_reserva" type="text" class="form-control" placeholder="seleccione la fecha">
+        <span class="input-group-append">
+            <span class="input-group-text bg-white d-block">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </span>
+      </div>
+
+    <div class="form-group">
+      <label for="nombre">Precio</label>
+      <input
+        type="number"
+        class="form-control"
+        id="precio"
+        name="precio"
+        placeholder="Ingrese el precio de la reserva de consulta"
+        required
+      />
+    </div>
+
+
+      <button type="submit">Registrar Reserva</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if reservas|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Consultorio</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora Inicio</th>
+                <th scope="col">Hora Fin</th>
+                <th scope="col">Precio</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for reserva in reservas %}
+              <tr>
+                  <th scope="row">{{reserva.id}}</th>
+                  <td>{{reserva.consultorio.nombre}}</td>
+                  <td>{{reserva.paciente.nombre}} {{reserva.paciente.apellido}}</td>
+                  <td>{{reserva.consultorio.doctor.nombre}} {{reserva.consultorio.doctor.apellido}}</td>
+                  <td>{{reserva.consultorio.especialidad.nombre}}</td>
+                  <td>{{reserva.fecha_reserva}}</td>
+                  <td>{{reserva.inicio}}</td>
+                  <td>{{reserva.fin}}</td>
+                  <td>{{reserva.precio}} Bs</td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Reservas registrados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}
+
+{% block customJavascript %} 
+
+<script type="text/javascript">
+    $(function() {
+        $('#datepicker').datepicker();
+    });
+</script>
+
+{% endblock %}

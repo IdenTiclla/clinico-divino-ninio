@@ -1,0 +1,67 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Horarios</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/consultorios/agregar/horarios/{{consultorio.id}}" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="inicio">Agregar Horario</label>
+        <input type="time" name="inicio" id="inicio" class="form-control form-control-lg">
+      </div>
+
+      <div class="form-group">
+        <label for="fin">Hora Fin</label>
+        <input type="time" name="fin" id="fin" class="form-control form-control-lg">
+      </div>
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione turno</label>
+        <select name="turno" class="form-select"  aria-label="Default select example">
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>          
+            <option value="Noche">Noche</option>          
+
+        </select>
+      </div>
+
+      
+
+
+      <button type="submit">Registrar Horario</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if horarios|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Hora Inicio</th>
+                <th scope="col">Hora Fin</th>
+                <th scope="col">Turno</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for horario in horarios %}
+              <tr>
+                  <th scope="row">{{horario.id}}</th>
+                  <td>{{horario.inicio}}</td>
+                  <td>{{horario.fin}}</td>
+                  <td>{{horario.turno}}</td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>Este consultorio no tiene horarios</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

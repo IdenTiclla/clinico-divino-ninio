@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+    Actualizar Doctor
+{% endblock %}
+
+{% block content %}
+<div class="col-md-5">
+    <h1>Actualizar Doctor</h1>
+    <form action="/doctores/update/{{doctor.id}}" method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="nombre">Nombre del doctor</label>
+            <input
+              type="text"
+              class="form-control"
+              id="nombre"
+              name="nombre"
+              placeholder="Ingrese el nombre del doctor"
+              value="{{doctor.nombre}}"
+            />
+          </div>
+    
+          <div class="form-group">
+            <label for="nombre">Apellido paterno</label>
+            <input
+              type="text"
+              class="form-control"
+              id="apellidoPaterno"
+              name="apellidoPaterno"
+              placeholder="Ingrese el apellido paterno"
+              value="{{doctor.apellido}}"
+            />
+          </div>
+    
+    
+          <div class="form-group">
+            <label for="nombre">Carnet de identidad</label>
+            <input
+              type="number"
+              class="form-control"
+              id="ci"
+              name="ci"
+              placeholder="Ingrese el ci"
+              value="{{doctor.ci}}"
+            />
+          </div>
+    
+          
+          <div class="form-group">
+            <label for="nombre">Telefono</label>
+            <input
+              type="number"
+              class="form-control"
+              id="telefono"
+              name="telefono"
+              placeholder="Ingrese el telefono"
+              value="{{doctor.telefono}}"
+            />
+          </div>
+  
+      
+  
+        <button type="submit">Actualizar doctor</button>
+    </form>
+  </div>
+
+{% endblock %}

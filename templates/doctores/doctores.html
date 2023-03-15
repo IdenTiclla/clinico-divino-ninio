@@ -1,0 +1,99 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Doctores</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/doctores" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre del doctor</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre del doctor"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Apellido paterno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="apellidoPaterno"
+          name="apellidoPaterno"
+          placeholder="Ingrese el apellido paterno"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="nombre">Carnet de identidad</label>
+        <input
+          type="number"
+          class="form-control"
+          id="ci"
+          name="ci"
+          placeholder="Ingrese el ci"
+        />
+      </div>
+
+      
+      <div class="form-group">
+        <label for="nombre">Telefono</label>
+        <input
+          type="number"
+          class="form-control"
+          id="telefono"
+          name="telefono"
+          placeholder="Ingrese el telefono"
+        />
+      </div>
+
+
+      <button type="submit">Registrar Doctor</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if doctores|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre de empleado</th>
+                <th scope="col">Apellido paterno</th>
+                <th scope="col">Ci</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Acciones</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for doctor in doctores %}
+              <tr>
+                  <th scope="row">{{doctor.id}}</th>
+                  <td>{{doctor.nombre}}</td>
+                  <td>{{doctor.apellido}}</td>
+                  <td>{{doctor.ci}}</td>
+                  <td>{{doctor.telefono}}</td>
+
+                  <td>
+                    <a href="/doctores/update/{{doctor.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/doctores/delete/{{doctor.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Doctores registrados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

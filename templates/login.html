@@ -1,0 +1,62 @@
+{% extends 'layouts/base.html' %} 
+{% load static %}
+{% block title %} Login {% endblock %} 
+
+{% block customCSS %}
+<link
+  rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous"
+/>
+<link
+  rel="stylesheet"
+  href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+  integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+  crossorigin="anonymous"
+/>
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %} 
+
+{% block content %}
+<div id="logreg-forms">
+  <form class="form-signin" action="{% url 'login_page' %}" method="post">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal" style="text-align: center">
+      Inicio de sesion
+    </h1>
+
+    <!-- type="email" -->
+    <input
+      id="inputEmail"
+      class="form-control"
+      placeholder="Nombre de usuario"
+      autofocus=""
+      required
+      name="username"
+    />
+    <input
+      type="password"
+      id="inputPassword"
+      class="form-control"
+      placeholder="Contraseña"
+      required
+      name="password"
+    />
+
+    <button class="btn btn-success btn-block" type="submit">
+      <i class="fas fa-sign-in-alt"></i>Iniciar sesion
+    </button>
+
+    <a
+      href="{% url 'register_page' %}"
+      class="btn btn-primary btn-block"
+      type="button"
+      style="color: white"
+    >
+      <i class="fas fa-user-plus"></i> Registrarse
+    </a>
+  </form>
+</div>
+
+{% endblock %}

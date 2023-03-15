@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Especialidades</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/especialidades" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre de la especialidad"
+        />
+      </div>
+
+
+      <label for="">Descripcion de la especialidad</label>
+      <div class="form-group">
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            placeholder="Leave a comment here"
+            id="floatingTextarea"
+            name="descripcion"
+            required
+          ></textarea>
+          <label for="floatingTextarea">Descripcion de la especialidad</label>
+        </div>
+      </div>
+
+
+      <button type="submit">Registrar Especialidad</button>
+    </form>
+  </div>
+  <div class="col-md-7">
+    {% if especialidades|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre de especialidad</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Acciones</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for especialidad in especialidades %}
+              <tr>
+                  <th scope="row">{{especialidad.id}}</th>
+                  <td>{{especialidad.nombre}}</td>
+                  <td>{{especialidad.descripcion}}</td>
+                  
+                  <td>
+                    <a href="/especialidades/update/{{especialidad.id}}" class="btn btn-success">Actualizar</a>
+                    <a href="/especialidades/delete/{{especialidad.id}}" class="btn btn-danger confirmation">Eliminar</a>
+                  </td>
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else%}
+        <h1>No hay Especialidades registrados!</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}

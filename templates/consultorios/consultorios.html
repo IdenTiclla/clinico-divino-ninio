@@ -1,0 +1,125 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<h1>Consultorios</h1>
+<div class="row">
+  <div class="col-md-5">
+    <form action="/consultorios" method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nombre">Nombre del consultorio</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nombre"
+          name="nombre"
+          placeholder="Ingrese el nombre del consultorio"
+          required
+        />
+      </div>
+
+
+      <!-- <div class="form-group">
+        <label for="sueldo">Seleccione la especialidad</label>
+        <select name="especialidad_id" class="form-select"  aria-label="Default select example">
+          {% for especialidad in especialidades %}
+            <option value="{{especialidad.id}}">{{especialidad.nombre}}</option>
+          
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sueldo">Seleccione el doctor</label>
+        <select name="doctor_id" class="form-select"  aria-label="Default select example">
+          {% for doctor in doctores %}
+            <option value="{{doctor.id}}">{{doctor.nombre}} {{ doctor.apellido}}</option>
+          
+          {% endfor %}
+        </select>
+      </div> -->
+
+
+      <button type="submit">Registrar Consultorio</button>
+    </form>
+  </div>
+
+
+  <div class="col-md-7">
+    {% if consultorios|length > 0 %}
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Horarios</th>
+                <th scope="col">Equipos</th>
+
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for consultorio in consultorios %}
+              <tr>
+                  <th scope="row">{{consultorio.id}}</th>
+                  <th scope="row">{{consultorio.nombre}}</th>
+
+                  <td>
+                    {% if not consultorio.especialidad %}
+                    <a disabled href="/consultorios/agregar/especialidad/{{consultorio.id}}" class="btn btn-primary">Agregar Especialidad</a>
+                    {% else %}
+                        {{consultorio.especialidad.nombre}}
+                    {% endif%}
+                  </td>
+                  <td>
+                    {% if not consultorio.especialidad%}
+                    <a href="/consultorios/agregar/doctor/{{consultorio.id}}" class="btn btn-primary disabled">Agregar Doctor</a>
+                    {% elif consultorio.especialidad and not consultorio.doctor %}
+                    <a href="/consultorios/agregar/doctor/{{consultorio.id}}" class="btn btn-primary">Agregar Doctor</a>
+                    {% elif consultorio.especialidad and consultorio.doctor %}
+                        {{consultorio.doctor.nombre}} {{consultorio.doctor.apellido}}
+                    {% endif %}
+
+                  </td>
+
+                  <td>
+                   
+
+                    <ul>
+                      {% for horario in consultorio.horario_set.all %}
+                        <li>{{horario}}</li>
+                      {% endfor %}
+                    </ul>
+                    
+
+                    <a href="/consultorios/agregar/horarios/{{consultorio.id}}" class="btn btn-primary">Agregar Horario</a>
+
+
+                  </td>
+                  
+
+                  <td>
+                    {% for equipo in consultorio.equipo_set.all %}
+                      <li>{{equipo}}</li>
+                    {% endfor %}
+
+                    <a href="/consultorios/agregar/equipos/{{consultorio.id}}" class="btn btn-primary">Agregar Equipo</a>
+
+                  </td>
+
+
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    {% else %}
+        <h1>No hay consultorios creados</h1>
+    {% endif %}
+    
+  </div>
+</div>
+{% endblock %}
