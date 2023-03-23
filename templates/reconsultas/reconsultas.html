@@ -12,10 +12,10 @@
 {% endblock %}
 
 {% block content %}
-<h1>Reservas de consultas</h1>
+<h1>Reconsultas</h1>
 <div class="row">
   <div class="col-md-5">
-    <form action="/reservas_de_consultas" method="post">
+    <form action="/reconsultas" method="post">
       {% csrf_token %}
 
       <div class="form-group">
@@ -52,17 +52,7 @@
         </span>
       </div>
 
-    <div class="form-group">
-      <label for="nombre">Precio</label>
-      <input
-        type="number"
-        class="form-control"
-        id="precio"
-        name="precio"
-        placeholder="Ingrese el precio de la reserva de consulta"
-        required
-      />
-    </div>
+    
 
 
       <button type="submit">Registrar Reserva</button>
@@ -98,10 +88,10 @@
                   <td>{{reserva.fecha_reserva}}</td>
                   <td>{{reserva.inicio}}</td>
                   <td>{{reserva.fin}}</td>
-                  <td>{{reserva.precio}} Bs</td>
+                  <td>RECONSULTA</td>
 
                   <td>
-                    <a href="reserva/comprobante/{{reserva.id}}" class="btn btn-success">Comprobante Reserva Consulta</a>
+                    <a href="reconsulta/comprobante/{{reserva.id}}" class="btn btn-success">Comprobante Reconsulta</a>
                   </td>
 
                 </tr>
@@ -109,7 +99,7 @@
             </tbody>
           </table>
     {% else%}
-        <h1>No hay Reservas registrados!</h1>
+        <h1>No hay Reconsultas Registradas!</h1>
     {% endif %}
     
   </div>
