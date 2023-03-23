@@ -1,0 +1,137 @@
+<head>
+    <style>
+        @page {
+            size: a4 portrait;
+            @frame header_frame {           /* Static Frame */
+                -pdf-frame-content: header_content;
+                left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+            }
+            @frame content_frame {          /* Content Frame */
+                left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+            }
+            @frame footer_frame {           /* Another static Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+            }
+        }
+    </style>
+    </head>
+    
+    <body>
+        <!-- Content for Static Frame 'header_frame' -->
+        <div id="header_content">
+            <h3>Clinica Divino Niño</h3>
+            <h3>NIT: 48517760XX</h3>
+            <h3>Comprobante de reserva de consulta</h3>
+        </div>
+    
+        <!-- Content for Static Frame 'footer_frame' -->
+        <div id="footer_content">(c) - page <pdf:pagenumber>
+            of <pdf:pagecount>
+        </div>
+    
+        <!-- HTML Content -->
+        <table>
+                <tr>
+                    <td>Direccion: {{address}}</td>
+                    <td>{{phone}}</td>
+                </tr>
+                <tr>
+                    <td>Ciudad: {{city}},</td>
+                </tr>
+                <tr>
+                    <td>Correo Electronico: {{website}}</td>
+                </tr>
+        </table>
+
+
+        
+
+        <div>
+            <h3>INFORMACION DEL PACIENTE</h3>
+        </div>
+
+        <table>
+                <tr>
+                    <td>Nombre paciente: {{paciente.nombre}} {{paciente.apellido}}</td>
+                </tr>
+                <tr>
+                    <td>Carnet de identidad: {{paciente.ci}}</td>
+                </tr>
+
+                <tr>
+                    <td>telefono: {{paciente.telefono}}</td>
+                </tr>
+                <tr>
+                    <td>Direccion: {{paciente.domicilio}}</td>
+                </tr>
+        </table>
+
+
+
+        <div>
+            <h3>INFORMACION PARA LA RECONSULTA</h3>
+        </div>
+
+        <table>
+                <tr>
+                    <td>Doctor: {{reserva.consultorio.doctor.nombre}} {{reserva.consultorio.doctor.apellido}}</td>
+                </tr>
+
+                <tr>
+                    <td>Especialidad: {{reserva.consultorio.especialidad.nombre}} </td>
+                </tr>
+
+                <tr>
+                    <td>Consultorio: {{reserva.consultorio.nombre}}</td>
+                </tr>
+
+                <tr>
+                    <td>Fecha para la RECONSULTA: .. /.. /....  </td>
+                </tr>
+
+
+                <tr>
+                    <td>FIRMA: ............  </td>
+                </tr>
+                
+    
+        </table>
+    
+
+        <div>
+            <h3>INFORMACION PARA LA CONSULTA</h3>
+        </div>
+
+        <hr>
+    
+        <table>
+            <tr>
+                <th scope="col">Consultorio</th>
+                <th scope="col">Paciente</th>
+                <th scope="col">Doctor</th>
+                <th scope="col">Especialidad</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Hora Inicio</th>
+                <th scope="col">Hora Fin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                  <td>{{reserva.consultorio.nombre}}</td>
+                  <td>{{reserva.paciente.nombre}} {{reserva.paciente.apellido}}</td>
+                  <td>{{reserva.consultorio.doctor.nombre}} {{reserva.consultorio.doctor.apellido}}</td>
+                  <td>{{reserva.consultorio.especialidad.nombre}}</td>
+                  <td>{{reserva.fecha_reserva}}</td>
+                  <td>{{reserva.inicio}}</td>
+                  <td>{{reserva.fin}}</td>
+
+                </tr>
+            </tbody>
+            
+        </table>
+    
+        <hr>
+        <p><strong>Precio de la consulta: {{reserva.precio}} Bs</strong></p>
+    </body>
+    </html>

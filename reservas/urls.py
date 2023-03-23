@@ -12,6 +12,8 @@ urlpatterns = [
     # reportes
     path('reporte_dinero_dia_especifico', views.reporte_dinero_dia_especifico),
     path('reporte_consultas_doctor_especifico', views.reporte_consultas_doctor_especifico),
+    path('reserva/comprobante/<int:id>', views.descargar_comprobante_reserva),
+
 
 
 ]

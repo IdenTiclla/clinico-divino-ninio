@@ -6,7 +6,28 @@ from pacientes.models import Paciente
 from reservas.models import Reserva
 from doctores.models import Doctor
 
+# libraries for generate pdf
+
+from django.template.loader import get_template
+from io import BytesIO
+from xhtml2pdf import pisa
+from django.http import HttpResponse
+
+
+
+# helper for generate pdf comprobante
+def render_to_pdf(template_src, context_dict={}):
+	template = get_template(template_src)
+	html  = template.render(context_dict)
+	result = BytesIO()
+	pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+	if not pdf.err:
+		return HttpResponse(result.getvalue(), content_type='application/pdf')
+	return None
+
 # Create your views here.
+
+
 
 
 def reservas(request):
@@ -111,3 +132,24 @@ def reporte_consultas_doctor_especifico(request):
         })
         
     
+
+#  ruta para descargar el comprobante
+def descargar_comprobante_reserva(request, id):
+    reserva = Reserva.objects.get(id=id)
+    paciente = reserva.paciente
+    consultorio = reserva.consultorio
+    
+
+    
+    data = {
+        "address": "Av Landivar #1131",
+        "city": "Santa cruz",
+        "zipcode": "98663",
+        "website": "clinicadivinoniño.com",
+
+        "paciente": paciente,
+        "consultorio": consultorio,
+        "reserva": reserva
+	}
+    pdf = render_to_pdf("reservas/pdf_template_reserva_comprobante.html", data)
+    return HttpResponse(pdf, content_type='application/pdf')

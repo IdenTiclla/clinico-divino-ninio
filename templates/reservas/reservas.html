@@ -82,6 +82,8 @@
                 <th scope="col">Hora Inicio</th>
                 <th scope="col">Hora Fin</th>
                 <th scope="col">Precio</th>
+                <th scope="col">Comprobante</th>
+
 
               </tr>
             </thead>
@@ -97,6 +99,10 @@
                   <td>{{reserva.inicio}}</td>
                   <td>{{reserva.fin}}</td>
                   <td>{{reserva.precio}} Bs</td>
+
+                  <td>
+                    <a href="reserva/comprobante/{{reserva.id}}" class="btn btn-success">Descargar Comprobante</a>
+                  </td>
 
                 </tr>
               {% endfor %}
