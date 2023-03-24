@@ -62,7 +62,13 @@
                   <td>{{reserva.consultorio.especialidad.nombre}}</td>
 
                   <td>{{reserva.fecha_reserva}}</td>
-                  <td>{{reserva.precio}} Bs</td>
+                  <td>
+                    {% if reserva.precio > 0 %}
+                      {{reserva.precio}} Bs
+                    {% else %}
+                      RECONSULTA
+                    {% endif %}
+                  </td>
 
 
                   

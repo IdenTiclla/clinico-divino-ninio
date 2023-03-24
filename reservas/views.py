@@ -172,8 +172,11 @@ def reporte_dinero_dia_especifico(request):
 
         reservas = Reserva.objects.filter(fecha_reserva=fecha_reserva)
         print(reservas)
+        total = 0
+        total = sum([reserva.precio for reserva in reservas])
         return render(request, "reportes/reporte_dinero_dia_especifico.html", {
-            'reservas': reservas
+            'reservas': reservas,
+            'total': total
         })
     
 
